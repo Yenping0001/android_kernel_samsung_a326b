@@ -129,7 +129,10 @@ static unsigned long zero_ul;
 static unsigned long one_ul = 1;
 static unsigned long long_max = LONG_MAX;
 static int one_hundred = 100;
-#if defined(CONFIG_MTK_GMO_RAM_OPTIMIZE) || defined(CONFIG_INCREASE_MAXIMUM_SWAPPINESS)
+#ifdef CONFIG_INCREASE_MAXIMUM_SWAPPINESS
+static int max_swappiness = 200;
+#endif
+#ifdef CONFIG_MTK_GMO_RAM_OPTIMIZE
 static int two_hundred = 200;
 #endif
 static int one_thousand = 1000;
