@@ -1,4 +1,4 @@
-name: Kernel Build & Release
+name: Kernel Build & Release (KernelSU)
 
 on:
   workflow_dispatch:
@@ -48,15 +48,21 @@ jobs:
           restore-keys: |
             ccache-${{ runner.os }}-
 
-      - name: Build kernel
+      - name: Clone KernelSU
+        run: |
+          git clone --depth=1 https://github.com/tiann/KernelSU.git KernelSU
+
+      - name: Build kernel with KernelSU
+        env:
+          KERNELSU: 1
+          KERNELSU_PATH: ${{ github.workspace }}/KernelSU
         run: |
           chmod +x build.sh
           ./build.sh
 
-      # 🔧 Change this path to where your kernel outputs are
       - name: Collect build artifacts
         run: |
-          mkdir release
+          mkdir -p release
           find . -type f \( -name "*.zip" -o -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" \) -exec cp --parents {} release/ \;
 
       - name: Create GitHub Release
@@ -64,9 +70,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: Kernel Build ${{ github.run_number }}
+          name: Kernel Build w/ KernelSU ${{ github.run_number }}
           body: |
-            Automated kernel build.
+            Automated kernel build with KernelSU.
             Commit: ${{ github.sha }}
           files: |
             release/**/*
