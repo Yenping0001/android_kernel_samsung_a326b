@@ -58,7 +58,8 @@ jobs:
           KERNELSU_PATH: ${{ github.workspace }}/KernelSU
         run: |
           chmod +x build.sh
-          ./build.sh
+            export PLATFORM_VERSION=16.0
+           ./build.sh
 
       - name: Collect build artifacts
         run: |
