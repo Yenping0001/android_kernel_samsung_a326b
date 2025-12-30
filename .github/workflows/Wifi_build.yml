@@ -27,7 +27,7 @@ jobs:
 
       - name: Build WILC1000 Modules
         run: |
-          cd $GITHUB_WORKSPACE/kernel_source
+          cd $GITHUB_WORKSPACE
           # We enable the driver as a module
           # and set the SDIO interface standard for mobile
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- \
