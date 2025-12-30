@@ -1,0 +1,29 @@
+name: Kernel Diagnostic - Find Driver
+on: [workflow_dispatch] # Allows you to run it manually from the "Actions" tab
+
+jobs:
+  find-wlan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Kernel Source
+        uses: actions/checkout@v4
+
+      - name: Search for Wi-Fi Makefile
+        id: search
+        run: |
+          echo "### Wi-Fi Search Results" >> $GITHUB_STEP_SUMMARY
+          
+          # Find all Makefiles containing the driver object
+          # Use -n to show line numbers
+          grep -rn "wlan.o" . --include="Makefile" > search_results.txt || true
+          
+          if [ -s search_results.txt ]; then
+            echo "Found driver at:"
+            cat search_results.txt
+            # Add to the GitHub summary page for easy reading
+            echo '```makefile' >> $GITHUB_STEP_SUMMARY
+            cat search_results.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No wlan.o found in any Makefile." >> $GITHUB_STEP_SUMMARY
+          fi
