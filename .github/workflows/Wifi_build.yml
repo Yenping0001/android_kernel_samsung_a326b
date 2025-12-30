@@ -54,19 +54,4 @@ jobs:
           files: output_modules/*.ko
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Prepare Modules for Upload
-        run: |
-          mkdir -p output_modules
-          # Search for the newly created .ko files
-          find kernel_source/drivers/staging/wilc1000 -name "*.ko" -exec cp {} output_modules/ \;
-          ls -R output_modules/
-
-      - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: |
-            output_modules/*.ko
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
