@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-kernel-module:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # The distribution to run on
     permissions:
       contents: write
 
@@ -27,15 +27,14 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/kernel_source
           
-          # 1. Setup the basic configuration
-          # Replace 'defconfig' with your specific phone's defconfig name if you know it
+          # 1. Generate the kernel configuration
+          # Note: Replace 'defconfig' with your device's specific config if known
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- defconfig
           
-          # 2. Prepare the kernel headers
-          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- prepare
+          # 2. Prepare headers and scripts for module compilation
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- modules_prepare
           
-          # 3. Build the specific Wi-Fi module
+          # 3. Compile only the WILC1000 driver folder
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- \
             CONFIG_WILC1000=m \
             CONFIG_WILC1000_SDIO=m \
@@ -44,6 +43,7 @@ jobs:
       - name: Prepare Modules for Upload
         run: |
           mkdir -p output_modules
+          # Find the built .ko file in the staging directory
           find kernel_source/drivers/staging/wilc1000 -name "*.ko" -exec cp {} output_modules/ \;
           ls -R output_modules/
 
@@ -54,4 +54,3 @@ jobs:
           files: output_modules/*.ko
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
