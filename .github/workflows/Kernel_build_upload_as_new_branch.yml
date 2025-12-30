@@ -1,4 +1,4 @@
-name: Kernel Build & Upload to Branch (KernelSU)
+name: Kernel Build & Upload Full Source (KernelSU)
 
 on:
   workflow_dispatch:
@@ -12,11 +12,13 @@ jobs:
     runs-on: ubuntu-22.04
 
     permissions:
-      contents: write   # Required to push to a new branch
+      contents: write
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Get history to allow branching
 
       - name: Install build dependencies
         run: |
@@ -44,30 +46,23 @@ jobs:
           export PLATFORM_VERSION=16.0
           ./build.sh
 
-      - name: Collect build artifacts
-        run: |
-          mkdir -p release
-          # Find and copy files into the release folder without full path nesting
-          find . -type f \( -name "*.zip" -o -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" \) -exec cp {} release/ \;
-
-      - name: Push Artifacts to New Branch
+      - name: Push Full Source to New Branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Setup Branch Name with Run Number
-          BRANCH_NAME="build-artifacts-${{ github.run_number }}"
-          
-          # 2. Go into the release folder and initialize it as a fresh repo
-          cd release
-          git init
+          # 1. Setup Identity
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 3. Commit the files
-          git add .
-          git commit -m "Kernel build artifacts for run ${{ github.run_number }}"
+          # 2. Create a new unique branch
+          BRANCH_NAME="full-build-${{ github.run_number }}"
+          git checkout -b $BRANCH_NAME
           
-          # 4. Force push to the new branch in the main repository
-          # This creates the branch if it doesn't exist
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-          git push -f origin HEAD:refs/heads/$BRANCH_NAME
+          # 3. Add EVERYTHING (including the built KernelSU folder and build outputs)
+          # Note: If your .gitignore normally hides build files (like Image), 
+          # we use -f to force add them.
+          git add -f .
+          
+          # 4. Commit and Push
+          git commit -m "Full source and build output for run ${{ github.run_number }}"
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" $BRANCH_NAME
