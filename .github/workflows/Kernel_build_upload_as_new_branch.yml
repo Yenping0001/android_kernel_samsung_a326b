@@ -1,0 +1,73 @@
+name: Kernel Build & Upload to Branch (KernelSU)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: write   # Required to push to a new branch
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y bc bison build-essential ccache curl flex git libelf-dev libssl-dev lld llvm make python3 rsync unzip wget zip
+
+      - name: Enable ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: ccache-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ runner.os }}-
+
+      - name: Clone KernelSU
+        run: |
+          git clone --depth=1 https://github.com/tiann/KernelSU.git KernelSU
+
+      - name: Build kernel with KernelSU
+        env:
+          KERNELSU: 1
+          KERNELSU_PATH: ${{ github.workspace }}/KernelSU
+        run: |
+          chmod +x build.sh
+          export PLATFORM_VERSION=16.0
+          ./build.sh
+
+      - name: Collect build artifacts
+        run: |
+          mkdir -p release
+          # Find and copy files into the release folder without full path nesting
+          find . -type f \( -name "*.zip" -o -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" \) -exec cp {} release/ \;
+
+      - name: Push Artifacts to New Branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 1. Setup Branch Name with Run Number
+          BRANCH_NAME="build-artifacts-${{ github.run_number }}"
+          
+          # 2. Go into the release folder and initialize it as a fresh repo
+          cd release
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 3. Commit the files
+          git add .
+          git commit -m "Kernel build artifacts for run ${{ github.run_number }}"
+          
+          # 4. Force push to the new branch in the main repository
+          # This creates the branch if it doesn't exist
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          git push -f origin HEAD:refs/heads/$BRANCH_NAME
