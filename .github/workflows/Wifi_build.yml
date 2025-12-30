@@ -1,39 +1,59 @@
 name: Build Wi-Fi Module
 
 on:
-  workflow_dispatch: # Allows manual trigger from the Actions tab
+  workflow_dispatch:
   push:
     tags:
-      - 'v*' # Triggers when you push a tag like v1.0
+      - 'v*'
 
 jobs:
   build-kernel-module:
-    runs-on: ubuntu-latest  # This is the "Distribution" (Latest Ubuntu Linux)
-    
+    runs-on: ubuntu-latest
     permissions:
-      contents: write # Required to upload files to the Release section
+      contents: write
 
     steps:
       - name: Checkout Kernel Source
         uses: actions/checkout@v4
-        
+        with:
+          path: kernel_source
 
-      - name: Set up Toolchain
+      - name: Install Build Dependencies
         run: |
-          # You need to ensure your cross-compiler (aarch64) is installed here
-          # Usually, you would download the Android NDK or a specific GCC/Clang toolchain
           sudo apt-get update
-          sudo apt-get install -y build-essential bc flex bison libssl-dev
+          sudo apt-get install -y build-essential bc flex bison libssl-dev libelf-dev
 
       - name: Build WILC1000 Modules
         run: |
-          cd $GITHUB_WORKSPACE
-          # We enable the driver as a module
-          # and set the SDIO interface standard for mobile
+          cd $GITHUB_WORKSPACE/kernel_source
+          
+          # 1. Setup the basic configuration
+          # Replace 'defconfig' with your specific phone's defconfig name if you know it
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- defconfig
+          
+          # 2. Prepare the kernel headers
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- prepare
+          make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- modules_prepare
+          
+          # 3. Build the specific Wi-Fi module
           make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- \
             CONFIG_WILC1000=m \
             CONFIG_WILC1000_SDIO=m \
             M=drivers/staging/wilc1000 modules
+
+      - name: Prepare Modules for Upload
+        run: |
+          mkdir -p output_modules
+          find kernel_source/drivers/staging/wilc1000 -name "*.ko" -exec cp {} output_modules/ \;
+          ls -R output_modules/
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: output_modules/*.ko
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare Modules for Upload
         run: |
