@@ -1,28 +1,29 @@
-    - name: Build WILC1000 Modules
-      run: |
+     - name: Build WILC1000 Modules
+       run: |
         cd $GITHUB_WORKSPACE/kernel_source
         make ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- \
           CONFIG_WILC1000=m \
           CONFIG_WILC1000_SDIO=m \
           M=drivers/staging/wilc1000 modules
 
-    - name: Prepare Modules for Upload
-      run: |
+     - name: Prepare Modules for Upload
+       run: |
         # Create a folder to collect your built modules
         mkdir -p output_modules
         
-        # Copy the specific .ko files found in staging
-        # Note: We use "." here to search from the current directory
+        # Search for the .ko files and copy them
+        # Note: If your checkout folder isn't named 'kernel_source', 
+        # change the path below to '.'
         find kernel_source/drivers/staging/wilc1000 -name "*.ko" -exec cp {} output_modules/ \;
         
-        # List them in the log so you can be sure they exist
+        # Verify they exist in the logs
         ls -R output_modules/
 
-    - name: Upload to GitHub Release
-      uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
+     - name: Upload to GitHub Release
+       uses: softprops/action-gh-release@v2
+       if: startsWith(github.ref, 'refs/tags/')
+       with:
         files: |
           output_modules/*.ko
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
