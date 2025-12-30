@@ -16,8 +16,7 @@ jobs:
     steps:
       - name: Checkout Kernel Source
         uses: actions/checkout@v4
-        with:
-          path: kernel_source # Ensures the folder is named kernel_source
+        
 
       - name: Set up Toolchain
         run: |
