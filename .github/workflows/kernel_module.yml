@@ -22,8 +22,23 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y \
-            bc bison build-essential ccache curl flex git libelf-dev \
-            libssl-dev lld llvm make python3 rsync unzip wget zip
+            bc \
+            bison \
+            build-essential \
+            ccache \
+            curl \
+            flex \
+            git \
+            libelf-dev \
+            libssl-dev \
+            lld \
+            llvm \
+            make \
+            python3 \
+            rsync \
+            unzip \
+            wget \
+            zip
 
       - name: Enable ccache
         uses: actions/cache@v4
@@ -43,52 +58,33 @@ jobs:
           KERNELSU_PATH: ${{ github.workspace }}/KernelSU
         run: |
           chmod +x build.sh
-          # Set your platform version
           export PLATFORM_VERSION=16.0
           ./build.sh
 
       - name: Collect build artifacts
         run: |
-          mkdir -p release_dist
+          mkdir -p release
+          # 1. Collect standard kernel images and dtbs
+          find . -type f \( -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" -o -name "*.zip" \) -exec cp {} release/ \;
           
-          # 1. Collect Core Kernel Files
-          echo "Collecting Kernel Images and DTBs..."
-          find . -maxdepth 4 -type f \( -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" \) -exec cp {} release_dist/ \;
+          # 2. Specifically find and collect the WLAN module
+          # We use -name to find it and cp it into the root of the release folder
+          find . -type f -name "wlan_drv_gen4m.ko" -exec cp {} release/ \;
           
-          # 2. Specifically target MediaTek Connectivity modules
-          # This is the path you requested: ./drivers/misc/mediatek/connectivity/
-          MTK_CONN_PATH="./drivers/misc/mediatek/connectivity"
-          
-          echo "Searching for .ko modules in $MTK_CONN_PATH..."
-          if [ -d "$MTK_CONN_PATH" ]; then
-            find "$MTK_CONN_PATH" -type f -name "*.ko" -exec cp {} release_dist/ \;
-          else
-            echo "::warning ::Path $MTK_CONN_PATH not found! Searching entire tree for connectivity modules as fallback..."
-            find . -type f -name "*.ko" -path "*/connectivity/*" -exec cp {} release_dist/ \;
-          fi
-          
-          # 3. List files for debugging logs
+          # Optional: List files to logs for debugging
           echo "Files collected for release:"
-          ls -lh release_dist/
+          ls -R release/
 
       - name: Create GitHub Release
         id: release
         uses: softprops/action-gh-release@v2
-        if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         with:
           tag_name: build-${{ github.run_number }}
-          name: MediaTek Kernel Build w/ KernelSU ${{ github.run_number }}
+          name: Kernel Build w/ KernelSU ${{ github.run_number }}
           body: |
-            ### Build Information
-            - **KernelSU:** Included
-            - **Wi-Fi/BT Drivers:** Sourced from `./drivers/misc/mediatek/connectivity/`
-            - **Commit:** ${{ github.sha }}
-            
-            ### Files Included
-            The release contains the Kernel Image and all `.ko` modules found in the connectivity directory (including `wlan_drv_gen4m.ko`).
+            Automated kernel build with KernelSU.
+            Includes WLAN Module: wlan_drv_gen4m.ko
+            Commit: ${{ github.sha }}
           files: |
-            release_dist/Image*
-            release_dist/*.dtb
-            release_dist/*.dtbo
-            release_dist/*.ko
+            release/*
             
