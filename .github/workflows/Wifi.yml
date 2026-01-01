@@ -15,7 +15,7 @@ jobs:
           
           # Find all Makefiles containing the driver object
           # Use -n to show line numbers
-          grep -rn "wlan.o" . --include="Makefile" > search_results.txt || true
+          grep -rn "wlan" . --include="Makefile" > search_results.txt || true
           
           if [ -s search_results.txt ]; then
             echo "Found driver at:"
