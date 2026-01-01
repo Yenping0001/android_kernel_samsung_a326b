@@ -43,6 +43,7 @@ jobs:
           KERNELSU_PATH: ${{ github.workspace }}/KernelSU
         run: |
           chmod +x build.sh
+          # Set your platform version
           export PLATFORM_VERSION=16.0
           ./build.sh
 
@@ -50,18 +51,25 @@ jobs:
         run: |
           mkdir -p release_dist
           
-          # Find core kernel files
-          find . -type f \( -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" \) -exec cp {} release_dist/ \;
+          # 1. Collect Core Kernel Files
+          echo "Collecting Kernel Images and DTBs..."
+          find . -maxdepth 4 -type f \( -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" \) -exec cp {} release_dist/ \;
           
-          # Specifically find and copy the Wi-Fi module
-          # We use -name to ensure we get the exact MediaTek driver
-          find . -type f -name "wlan_drv_gen4m.ko" -exec cp {} release_dist/ \;
+          # 2. Specifically target MediaTek Connectivity modules
+          # This is the path you requested: ./drivers/misc/mediatek/connectivity/
+          MTK_CONN_PATH="./drivers/misc/mediatek/connectivity"
           
-          # Optional: Find any other .ko files just in case
-          find . -type f -name "*.ko" -not -name "wlan_drv_gen4m.ko" -exec cp {} release_dist/ \;
-
+          echo "Searching for .ko modules in $MTK_CONN_PATH..."
+          if [ -d "$MTK_CONN_PATH" ]; then
+            find "$MTK_CONN_PATH" -type f -name "*.ko" -exec cp {} release_dist/ \;
+          else
+            echo "::warning ::Path $MTK_CONN_PATH not found! Searching entire tree for connectivity modules as fallback..."
+            find . -type f -name "*.ko" -path "*/connectivity/*" -exec cp {} release_dist/ \;
+          fi
+          
+          # 3. List files for debugging logs
           echo "Files collected for release:"
-          ls -R release_dist/
+          ls -lh release_dist/
 
       - name: Create GitHub Release
         id: release
@@ -69,18 +77,18 @@ jobs:
         if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         with:
           tag_name: build-${{ github.run_number }}
-          name: Kernel Build w/ KernelSU ${{ github.run_number }}
+          name: MediaTek Kernel Build w/ KernelSU ${{ github.run_number }}
           body: |
-            Automated kernel build including MediaTek Wi-Fi modules.
+            ### Build Information
+            - **KernelSU:** Included
+            - **Wi-Fi/BT Drivers:** Sourced from `./drivers/misc/mediatek/connectivity/`
+            - **Commit:** ${{ github.sha }}
             
-            **Included Drivers:**
-            - `wlan_drv_gen4m.ko` (Wi-Fi)
-            - Kernel Image and Device Tree Blobs
-            
-            Commit: ${{ github.sha }}
+            ### Files Included
+            The release contains the Kernel Image and all `.ko` modules found in the connectivity directory (including `wlan_drv_gen4m.ko`).
           files: |
             release_dist/Image*
             release_dist/*.dtb
             release_dist/*.dtbo
-            release_dist/wlan_drv_gen4m.ko
             release_dist/*.ko
+            
