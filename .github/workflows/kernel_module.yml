@@ -1,0 +1,95 @@
+name: Kernel Build & Release (KernelSU)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            bc \
+            bison \
+            build-essential \
+            ccache \
+            curl \
+            flex \
+            git \
+            libelf-dev \
+            libssl-dev \
+            lld \
+            llvm \
+            make \
+            python3 \
+            rsync \
+            unzip \
+            wget \
+            zip
+
+      - name: Enable ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: ccache-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ runner.os }}-
+
+      - name: Clone KernelSU
+        run: |
+          git clone --depth=1 https://github.com/tiann/KernelSU.git KernelSU
+
+      - name: Build kernel with KernelSU
+        env:
+          KERNELSU: 1
+          KERNELSU_PATH: ${{ github.workspace }}/KernelSU
+        run: |
+          chmod +x build.sh
+          export PLATFORM_VERSION=16.0
+          ./build.sh
+
+      - name: Collect build artifacts
+        run: |
+          mkdir -p release_dist
+          
+          # Added *.ko to the find command to capture kernel modules
+          find . -type f \( \
+            -name "*.zip" -o \
+            -name "Image*" -o \
+            -name "*.dtb" -o \
+            -name "*.dtbo" -o \
+            -name "*.ko" \
+          \) -exec cp {} release_dist/ \;
+          
+          echo "Files collected for release:"
+          ls -lh release_dist/
+
+      - name: Create GitHub Release
+        id: release
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Kernel Build w/ KernelSU ${{ github.run_number }}
+          body: |
+            Automated kernel build including Kernel modules (.ko).
+            Commit: ${{ github.sha }}
+          files: |
+            release_dist/*.zip
+            release_dist/Image*
+            release_dist/*.dtb
+            release_dist/*.dtbo
+            release_dist/*.ko
