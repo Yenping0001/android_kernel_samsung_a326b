@@ -22,23 +22,8 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y \
-            bc \
-            bison \
-            build-essential \
-            ccache \
-            curl \
-            flex \
-            git \
-            libelf-dev \
-            libssl-dev \
-            lld \
-            llvm \
-            make \
-            python3 \
-            rsync \
-            unzip \
-            wget \
-            zip
+            bc bison build-essential ccache curl flex git libelf-dev \
+            libssl-dev lld llvm make python3 rsync unzip wget zip
 
       - name: Enable ccache
         uses: actions/cache@v4
@@ -65,17 +50,18 @@ jobs:
         run: |
           mkdir -p release_dist
           
-          # Added *.ko to the find command to capture kernel modules
-          find . -type f \( \
-            -name "*.zip" -o \
-            -name "Image*" -o \
-            -name "*.dtb" -o \
-            -name "*.dtbo" -o \
-            -name "*.ko" \
-          \) -exec cp {} release_dist/ \;
+          # Find core kernel files
+          find . -type f \( -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" \) -exec cp {} release_dist/ \;
           
+          # Specifically find and copy the Wi-Fi module
+          # We use -name to ensure we get the exact MediaTek driver
+          find . -type f -name "wlan_drv_gen4m.ko" -exec cp {} release_dist/ \;
+          
+          # Optional: Find any other .ko files just in case
+          find . -type f -name "*.ko" -not -name "wlan_drv_gen4m.ko" -exec cp {} release_dist/ \;
+
           echo "Files collected for release:"
-          ls -lh release_dist/
+          ls -R release_dist/
 
       - name: Create GitHub Release
         id: release
@@ -85,11 +71,16 @@ jobs:
           tag_name: build-${{ github.run_number }}
           name: Kernel Build w/ KernelSU ${{ github.run_number }}
           body: |
-            Automated kernel build including Kernel modules (.ko).
+            Automated kernel build including MediaTek Wi-Fi modules.
+            
+            **Included Drivers:**
+            - `wlan_drv_gen4m.ko` (Wi-Fi)
+            - Kernel Image and Device Tree Blobs
+            
             Commit: ${{ github.sha }}
           files: |
-            release_dist/*.zip
             release_dist/Image*
             release_dist/*.dtb
             release_dist/*.dtbo
+            release_dist/wlan_drv_gen4m.ko
             release_dist/*.ko
