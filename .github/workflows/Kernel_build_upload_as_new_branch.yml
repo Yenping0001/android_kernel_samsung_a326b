@@ -1,4 +1,4 @@
-name: Kernel Build & Upload Full Source (KernelSU)
+name: Kernel Build & Branch Upload
 
 on:
   workflow_dispatch:
@@ -12,18 +12,20 @@ jobs:
     runs-on: ubuntu-22.04
 
     permissions:
-      contents: write
+      contents: write   # REQUIRED to push to branches
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Get history to allow branching
+          fetch-depth: 0 # Fetches all history so we can push back easily
 
       - name: Install build dependencies
         run: |
           sudo apt update
-          sudo apt install -y bc bison build-essential ccache curl flex git libelf-dev libssl-dev lld llvm make python3 rsync unzip wget zip
+          sudo apt install -y \
+            bc bison build-essential ccache curl flex git libelf-dev \
+            libssl-dev lld llvm make python3 rsync unzip wget zip
 
       - name: Enable ccache
         uses: actions/cache@v4
@@ -46,23 +48,26 @@ jobs:
           export PLATFORM_VERSION=16.0
           ./build.sh
 
-      - name: Push Full Source to New Branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Prepare Branch Upload
         run: |
-          # 1. Setup Identity
+          # Create a temporary directory for the "source + build" result
+          # This avoids recursive git issues
+          mkdir -p ../upload_dir
+          
+          # Sync everything except the .git folder (to keep it clean)
+          rsync -arv --exclude='.git' --exclude='.github' . ../upload_dir/
+          
+          cd ../upload_dir
+          
+          # Initialize new git logic
+          git init
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 2. Create a new unique branch
-          BRANCH_NAME="full-build-${{ github.run_number }}"
-          git checkout -b $BRANCH_NAME
+          git add .
+          git commit -m "Build artifacts and source - Run ${{ github.run_number }}"
           
-          # 3. Add EVERYTHING (including the built KernelSU folder and build outputs)
-          # Note: If your .gitignore normally hides build files (like Image), 
-          # we use -f to force add them.
-          git add -f .
-          
-          # 4. Commit and Push
-          git commit -m "Full source and build output for run ${{ github.run_number }}"
-          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" $BRANCH_NAME
+          # Push to a branch named 'build-output' (Change this name if you like)
+          # The --force flag ensures the branch is overwritten with the latest build
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push -f origin master:build-output
