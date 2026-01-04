@@ -1,19 +1,18 @@
-name: Build Specific Kernel Module
+name: Build Single Kernel Module
 
 on:
   workflow_dispatch:
     inputs:
-      module_path:
-        description: 'Path to module (e.g., drivers/video/fbdev)'
+      module_dir:
+        description: 'Directory of the module (e.g., drivers/video/fbdev)'
         required: true
-        default: 'drivers/staging/example'
+        default: 'drivers/staging/android'
 
 jobs:
-  build_module:
+  build:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout Kernel Source
+      - name: Checkout Source
         uses: actions/checkout@v4
 
       - name: Install Dependencies
@@ -22,15 +21,15 @@ jobs:
           sudo apt-get install -y bc build-essential python3 curl git zip \
           libssl-dev libffi-dev flex bison libelf-dev libncurses-dev
 
-      - name: Setup Toolchains
+      - name: Clone Toolchains
         run: |
-          # Cloning toolchains as defined in your config.sh
-          git clone --depth=1 https://github.com/H33CKER/toolchains -b clang-12 ./clang
+          # Links from your config.sh
           git clone --depth=1 https://github.com/H33CKER/toolchains -b gcc-4.9 ./gcc
+          git clone --depth=1 https://github.com/H33CKER/toolchains -b clang-12 ./clang
 
       - name: Build Module
         run: |
-          # Define environment variables from your config.sh
+          # Setup Environment
           export ARCH=arm64
           export SRC=$(pwd)
           export OUT_DIR=$SRC/out
@@ -41,17 +40,18 @@ jobs:
           
           mkdir -p $OUT_DIR
 
-          # 1. Generate the base configuration
+          # 1. Initialize config
           make -C $SRC O=$OUT_DIR a32x_defconfig
 
-          # 2. Build ONLY the specific module
-          # We use the input from the 'workflow_dispatch'
-          make -C $SRC O=$OUT_DIR -j$(nproc) M=${{ github.event.inputs.module_path }}
+          # 2. Prepare headers/scripts (Required for standalone module build)
+          make -C $SRC O=$OUT_DIR -j$(nproc) modules_prepare
 
-      - name: Upload Module Artifact
+          # 3. Build only the specific directory
+          make -C $SRC O=$OUT_DIR -j$(nproc) M=${{ github.event.inputs.module_dir }}
+
+      - name: Upload .ko Files
         uses: actions/upload-artifact@v4
         with:
-          name: kernel-modules
-          # This finds all .ko files in the specific output path
-          path: out/${{ github.event.inputs.module_path }}/*.ko
-
+          name: compiled-modules
+          path: out/${{ github.event.inputs.module_dir }}/*.ko
+          
