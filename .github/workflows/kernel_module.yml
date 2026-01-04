@@ -1,4 +1,4 @@
-name: Build Mediatek Module
+name: Build MTK WLAN Module
 
 on:
   workflow_dispatch:
@@ -18,12 +18,13 @@ jobs:
 
       - name: Clone Toolchains
         run: |
+          # Toolchains from your config.sh
           git clone --depth=1 https://github.com/H33CKER/toolchains -b gcc-4.9 ./gcc
           git clone --depth=1 https://github.com/H33CKER/toolchains -b clang-12 ./clang
 
       - name: Build Module
         run: |
-          # Load Environment (from your config.sh logic)
+          # Environment Setup
           export ARCH=arm64
           export SRC=$(pwd)
           export OUT_DIR=$SRC/out
@@ -34,28 +35,24 @@ jobs:
           
           mkdir -p $OUT_DIR
 
-          # 1. Setup Config
+          # 1. Generate the .config file (Fixes the screenshot error)
           make -C $SRC O=$OUT_DIR a32x_defconfig
 
-          # 2. IMPORTANT: Force enable the module as 'm' if it's not set
-          # This ensures it generates a .ko instead of being built into the kernel
-          scripts/config --file $OUT_DIR/.config --enable CONFIG_MTK_CONN_FEM
-          # (Replace CONFIG_MTK_CONN_FEM with the actual config name for your driver)
-
-          # 3. Prepare for building
+          # 2. Prepare the build environment (Fixes the missing auto.conf error)
           make -C $SRC O=$OUT_DIR -j$(nproc) modules_prepare
 
-          # 4. Build the specific Mediatek path
-          make -C $SRC O=$OUT_DIR -j$(nproc) M=drivers/misc/mediatek/connectivity
+          # 3. Build specifically the WLAN directory
+          # We target the subfolder directly to find the .ko
+          make -C $SRC O=$OUT_DIR -j$(nproc) M=drivers/misc/mediatek/connectivity/wlan_drv_gen4m modules
 
-      - name: Check for .ko Files
+      - name: Find and Upload .ko
         run: |
-          echo "Listing found modules:"
-          find out/drivers/misc/mediatek/connectivity -name "*.ko"
-
-      - name: Upload .ko Files
+          echo "Searching for wlan_drv_gen4m.ko..."
+          find out -name "wlan_drv_gen4m.ko"
+          
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MTK-Modules
-          path: out/drivers/misc/mediatek/connectivity/**/*.ko
+          name: wlan-module
+          path: out/**/*.ko
           
