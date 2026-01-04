@@ -1,0 +1,1 @@
+cmd_drivers/scsi/sd_mod.o :=  rm -f drivers/scsi/sd_mod.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/scsi/sd_mod.o drivers/scsi/sd.o 

@@ -1,0 +1,1 @@
+cmd_drivers/spu_verify/built-in.o :=   rm -f drivers/spu_verify/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/spu_verify/built-in.o drivers/spu_verify/spu-sign-verify.o ; scripts/mod/modpost drivers/spu_verify/built-in.o

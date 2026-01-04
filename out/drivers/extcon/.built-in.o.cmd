@@ -1,0 +1,1 @@
+cmd_drivers/extcon/built-in.o :=   rm -f drivers/extcon/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/extcon/built-in.o drivers/extcon/extcon-core.o drivers/extcon/mediatek/built-in.o ; scripts/mod/modpost drivers/extcon/built-in.o

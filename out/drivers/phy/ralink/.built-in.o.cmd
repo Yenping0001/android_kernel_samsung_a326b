@@ -1,0 +1,1 @@
+cmd_drivers/phy/ralink/built-in.o :=  rm -f drivers/phy/ralink/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/phy/ralink/built-in.o

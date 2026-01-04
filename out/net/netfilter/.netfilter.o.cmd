@@ -1,0 +1,1 @@
+cmd_net/netfilter/netfilter.o :=  rm -f net/netfilter/netfilter.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD net/netfilter/netfilter.o net/netfilter/core.o net/netfilter/nf_log.o net/netfilter/nf_queue.o net/netfilter/nf_sockopt.o 

@@ -1,0 +1,1 @@
+cmd_drivers/connector/built-in.o :=   rm -f drivers/connector/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/connector/built-in.o drivers/connector/cn.o drivers/connector/cn_proc.o ; scripts/mod/modpost drivers/connector/built-in.o

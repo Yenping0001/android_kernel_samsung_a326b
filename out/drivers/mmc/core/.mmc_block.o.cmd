@@ -1,0 +1,1 @@
+cmd_drivers/mmc/core/mmc_block.o :=  rm -f drivers/mmc/core/mmc_block.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/mmc/core/mmc_block.o drivers/mmc/core/block.o drivers/mmc/core/queue.o 

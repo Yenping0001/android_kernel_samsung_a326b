@@ -1,0 +1,1 @@
+cmd_lib/mpi/built-in.o :=   rm -f lib/mpi/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD lib/mpi/built-in.o lib/mpi/mpi.o ; scripts/mod/modpost lib/mpi/built-in.o

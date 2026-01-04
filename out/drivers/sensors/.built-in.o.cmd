@@ -1,0 +1,1 @@
+cmd_drivers/sensors/built-in.o :=   rm -f drivers/sensors/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/sensors/built-in.o drivers/sensors/a96t3x6.o drivers/sensors/a96t3x6_sub.o ; scripts/mod/modpost drivers/sensors/built-in.o

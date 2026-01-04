@@ -1,0 +1,1 @@
+cmd_sound/soc/codecs/tas256x/built-in.o :=   rm -f sound/soc/codecs/tas256x/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/soc/codecs/tas256x/built-in.o sound/soc/codecs/tas256x/snd-soc-tas256x.o ; scripts/mod/modpost sound/soc/codecs/tas256x/built-in.o

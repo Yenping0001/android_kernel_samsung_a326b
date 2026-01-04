@@ -1,0 +1,1 @@
+cmd_drivers/mmc/host/mediatek/built-in.o :=   rm -f drivers/mmc/host/mediatek/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/mmc/host/mediatek/built-in.o drivers/mmc/host/mediatek/ComboA/built-in.o ; scripts/mod/modpost drivers/mmc/host/mediatek/built-in.o

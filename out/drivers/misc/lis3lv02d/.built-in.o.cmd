@@ -1,0 +1,1 @@
+cmd_drivers/misc/lis3lv02d/built-in.o :=  rm -f drivers/misc/lis3lv02d/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/lis3lv02d/built-in.o

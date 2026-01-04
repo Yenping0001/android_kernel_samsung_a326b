@@ -1,0 +1,1 @@
+cmd_fs/pstore/built-in.o :=   rm -f fs/pstore/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD fs/pstore/built-in.o fs/pstore/pstore.o fs/pstore/ramoops.o ; scripts/mod/modpost fs/pstore/built-in.o

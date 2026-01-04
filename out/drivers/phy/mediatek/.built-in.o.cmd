@@ -1,0 +1,1 @@
+cmd_drivers/phy/mediatek/built-in.o :=   rm -f drivers/phy/mediatek/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/phy/mediatek/built-in.o drivers/phy/mediatek/phy-mtk.o drivers/phy/mediatek/phy-mtk-mt6853.o ; scripts/mod/modpost drivers/phy/mediatek/built-in.o

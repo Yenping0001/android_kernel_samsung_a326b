@@ -1,0 +1,1 @@
+cmd_lib/zstd/zstd_compress.o :=  rm -f lib/zstd/zstd_compress.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD lib/zstd/zstd_compress.o lib/zstd/fse_compress.o lib/zstd/huf_compress.o lib/zstd/compress.o lib/zstd/entropy_common.o lib/zstd/fse_decompress.o lib/zstd/zstd_common.o 

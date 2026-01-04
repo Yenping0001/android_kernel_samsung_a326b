@@ -1,0 +1,1 @@
+cmd_sound/soc/nuc900/built-in.o :=  rm -f sound/soc/nuc900/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/soc/nuc900/built-in.o

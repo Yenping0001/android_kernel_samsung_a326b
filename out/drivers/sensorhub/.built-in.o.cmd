@@ -1,0 +1,1 @@
+cmd_drivers/sensorhub/built-in.o :=   rm -f drivers/sensorhub/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/sensorhub/built-in.o drivers/sensorhub/shub.o drivers/sensorhub/utility/sensor_core.o ; scripts/mod/modpost drivers/sensorhub/built-in.o

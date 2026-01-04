@@ -1,0 +1,1 @@
+cmd_lib/zstd/built-in.o :=   rm -f lib/zstd/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD lib/zstd/built-in.o lib/zstd/zstd_compress.o lib/zstd/zstd_decompress.o ; scripts/mod/modpost lib/zstd/built-in.o

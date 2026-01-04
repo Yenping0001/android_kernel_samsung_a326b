@@ -1,0 +1,1 @@
+cmd_drivers/usb/misc/built-in.o :=   rm -f drivers/usb/misc/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/usb/misc/built-in.o drivers/usb/misc/trancevibrator.o ; scripts/mod/modpost drivers/usb/misc/built-in.o

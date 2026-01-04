@@ -1,0 +1,1 @@
+cmd_security/selinux/built-in.o :=   rm -f security/selinux/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD security/selinux/built-in.o security/selinux/selinux.o ; scripts/mod/modpost security/selinux/built-in.o

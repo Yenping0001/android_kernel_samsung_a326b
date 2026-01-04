@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/aee/aed/aed.o :=  rm -f drivers/misc/mediatek/aee/aed/aed.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/mediatek/aee/aed/aed.o drivers/misc/mediatek/aee/aed/aed-main.o drivers/misc/mediatek/aee/aed/monitor_hang.o 

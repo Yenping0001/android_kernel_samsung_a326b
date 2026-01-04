@@ -1,0 +1,1 @@
+cmd_drivers/pwm/built-in.o :=   rm -f drivers/pwm/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/pwm/built-in.o drivers/pwm/core.o drivers/pwm/sysfs.o drivers/pwm/pwm-mtk-disp.o ; scripts/mod/modpost drivers/pwm/built-in.o

@@ -1,0 +1,1 @@
+cmd_drivers/usb/storage/ums-onetouch.o :=  rm -f drivers/usb/storage/ums-onetouch.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/usb/storage/ums-onetouch.o drivers/usb/storage/onetouch.o 

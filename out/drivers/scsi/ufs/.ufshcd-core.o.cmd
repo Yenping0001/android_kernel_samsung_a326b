@@ -1,0 +1,1 @@
+cmd_drivers/scsi/ufs/ufshcd-core.o :=  rm -f drivers/scsi/ufs/ufshcd-core.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/scsi/ufs/ufshcd-core.o drivers/scsi/ufs/ufshcd.o drivers/scsi/ufs/ufshcd-crypto.o 

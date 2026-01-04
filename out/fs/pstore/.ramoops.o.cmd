@@ -1,0 +1,1 @@
+cmd_fs/pstore/ramoops.o :=  rm -f fs/pstore/ramoops.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD fs/pstore/ramoops.o fs/pstore/ram.o fs/pstore/ram_core.o 

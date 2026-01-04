@@ -1,0 +1,1 @@
+cmd_drivers/tty/serial/built-in.o :=   rm -f drivers/tty/serial/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/tty/serial/built-in.o drivers/tty/serial/serial_core.o drivers/tty/serial/earlycon.o drivers/tty/serial/8250/built-in.o ; scripts/mod/modpost drivers/tty/serial/built-in.o

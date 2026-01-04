@@ -1,0 +1,1 @@
+cmd_crypto/cryptomgr.o :=  rm -f crypto/cryptomgr.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD crypto/cryptomgr.o crypto/algboss.o crypto/testmgr.o 

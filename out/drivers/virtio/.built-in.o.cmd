@@ -1,0 +1,1 @@
+cmd_drivers/virtio/built-in.o :=   rm -f drivers/virtio/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/virtio/built-in.o drivers/virtio/virtio.o drivers/virtio/virtio_ring.o ; scripts/mod/modpost drivers/virtio/built-in.o

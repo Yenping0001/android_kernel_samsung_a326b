@@ -1,0 +1,1 @@
+cmd_drivers/usb/gadget/udc/udc-core.o :=  rm -f drivers/usb/gadget/udc/udc-core.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/usb/gadget/udc/udc-core.o drivers/usb/gadget/udc/core.o drivers/usb/gadget/udc/trace.o 

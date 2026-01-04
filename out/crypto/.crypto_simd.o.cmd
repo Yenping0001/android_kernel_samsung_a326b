@@ -1,0 +1,1 @@
+cmd_crypto/crypto_simd.o :=  rm -f crypto/crypto_simd.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD crypto/crypto_simd.o crypto/simd.o 

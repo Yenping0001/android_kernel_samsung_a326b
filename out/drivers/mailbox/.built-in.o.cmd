@@ -1,0 +1,1 @@
+cmd_drivers/mailbox/built-in.o :=   rm -f drivers/mailbox/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/mailbox/built-in.o drivers/mailbox/mailbox.o drivers/mailbox/mtk-cmdq-mailbox.o drivers/mailbox/mtk-rpmsg-mailbox.o ; scripts/mod/modpost drivers/mailbox/built-in.o

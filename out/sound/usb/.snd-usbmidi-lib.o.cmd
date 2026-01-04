@@ -1,0 +1,1 @@
+cmd_sound/usb/snd-usbmidi-lib.o :=  rm -f sound/usb/snd-usbmidi-lib.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/usb/snd-usbmidi-lib.o sound/usb/midi.o 

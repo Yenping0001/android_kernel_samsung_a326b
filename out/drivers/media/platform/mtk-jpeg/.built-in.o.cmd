@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/mtk-jpeg/built-in.o :=   rm -f drivers/media/platform/mtk-jpeg/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/media/platform/mtk-jpeg/built-in.o drivers/media/platform/mtk-jpeg/mtk_jpeg.o ; scripts/mod/modpost drivers/media/platform/mtk-jpeg/built-in.o

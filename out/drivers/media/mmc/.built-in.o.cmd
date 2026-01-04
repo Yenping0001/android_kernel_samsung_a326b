@@ -1,0 +1,1 @@
+cmd_drivers/media/mmc/built-in.o :=   rm -f drivers/media/mmc/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/media/mmc/built-in.o drivers/media/mmc/siano/built-in.o ; scripts/mod/modpost drivers/media/mmc/built-in.o

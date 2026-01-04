@@ -1,0 +1,1 @@
+cmd_drivers/platform/built-in.o :=  rm -f drivers/platform/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/platform/built-in.o

@@ -1,0 +1,1 @@
+cmd_drivers/net/dsa/built-in.o :=   rm -f drivers/net/dsa/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/net/dsa/built-in.o drivers/net/dsa/b53/built-in.o drivers/net/dsa/microchip/built-in.o drivers/net/dsa/mv88e6xxx/built-in.o ; scripts/mod/modpost drivers/net/dsa/built-in.o

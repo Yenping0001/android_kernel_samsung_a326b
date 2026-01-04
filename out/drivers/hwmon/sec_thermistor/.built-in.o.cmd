@@ -1,0 +1,1 @@
+cmd_drivers/hwmon/sec_thermistor/built-in.o :=   rm -f drivers/hwmon/sec_thermistor/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/hwmon/sec_thermistor/built-in.o drivers/hwmon/sec_thermistor/sec_thermistor.o ; scripts/mod/modpost drivers/hwmon/sec_thermistor/built-in.o

@@ -1,0 +1,1 @@
+cmd_drivers/spmi/built-in.o :=   rm -f drivers/spmi/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/spmi/built-in.o drivers/spmi/spmi.o drivers/spmi/mtk-pmif.o drivers/spmi/mtk-dbg.o ; scripts/mod/modpost drivers/spmi/built-in.o

@@ -1,0 +1,1 @@
+cmd_drivers/pci/dwc/built-in.o :=   rm -f drivers/pci/dwc/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/pci/dwc/built-in.o drivers/pci/dwc/pcie-hisi.o ; scripts/mod/modpost drivers/pci/dwc/built-in.o

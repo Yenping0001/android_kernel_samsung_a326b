@@ -1,0 +1,1 @@
+cmd_drivers/video/built-in.o :=   rm -f drivers/video/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/video/built-in.o drivers/video/hdmi.o drivers/video/logo/built-in.o drivers/video/backlight/built-in.o drivers/video/fbdev/built-in.o ; scripts/mod/modpost drivers/video/built-in.o

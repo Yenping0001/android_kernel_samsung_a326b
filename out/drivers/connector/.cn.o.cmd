@@ -1,0 +1,1 @@
+cmd_drivers/connector/cn.o :=  rm -f drivers/connector/cn.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/connector/cn.o drivers/connector/cn_queue.o drivers/connector/connector.o 

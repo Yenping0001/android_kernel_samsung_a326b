@@ -1,0 +1,1 @@
+cmd_drivers/macintosh/built-in.o :=  rm -f drivers/macintosh/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/macintosh/built-in.o

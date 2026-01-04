@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/gpu/gpu_bm/built-in.o :=   rm -f drivers/misc/mediatek/gpu/gpu_bm/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/mediatek/gpu/gpu_bm/built-in.o drivers/misc/mediatek/gpu/gpu_bm/gpu_bm.o ; scripts/mod/modpost drivers/misc/mediatek/gpu/gpu_bm/built-in.o

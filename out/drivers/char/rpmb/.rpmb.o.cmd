@@ -1,0 +1,1 @@
+cmd_drivers/char/rpmb/rpmb.o :=  rm -f drivers/char/rpmb/rpmb.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/char/rpmb/rpmb.o drivers/char/rpmb/core.o 

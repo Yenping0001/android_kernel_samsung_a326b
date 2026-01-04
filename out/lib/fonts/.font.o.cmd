@@ -1,0 +1,1 @@
+cmd_lib/fonts/font.o :=  rm -f lib/fonts/font.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD lib/fonts/font.o lib/fonts/fonts.o lib/fonts/font_8x16.o 

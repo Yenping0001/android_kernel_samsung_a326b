@@ -1,0 +1,1 @@
+cmd_fs/notify/dnotify/built-in.o :=   rm -f fs/notify/dnotify/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD fs/notify/dnotify/built-in.o fs/notify/dnotify/dnotify.o ; scripts/mod/modpost fs/notify/dnotify/built-in.o

@@ -1,0 +1,1 @@
+cmd_drivers/misc/tzdev/4.2.0/built-in.o :=   rm -f drivers/misc/tzdev/4.2.0/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/tzdev/4.2.0/built-in.o drivers/misc/tzdev/4.2.0/tzdev.o ; scripts/mod/modpost drivers/misc/tzdev/4.2.0/built-in.o

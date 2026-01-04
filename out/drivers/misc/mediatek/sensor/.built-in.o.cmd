@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/sensor/built-in.o :=   rm -f drivers/misc/mediatek/sensor/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/mediatek/sensor/built-in.o drivers/misc/mediatek/sensor/dummy/built-in.o ; scripts/mod/modpost drivers/misc/mediatek/sensor/built-in.o

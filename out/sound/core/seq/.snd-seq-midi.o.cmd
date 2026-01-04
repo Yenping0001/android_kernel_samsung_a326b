@@ -1,0 +1,1 @@
+cmd_sound/core/seq/snd-seq-midi.o :=  rm -f sound/core/seq/snd-seq-midi.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/core/seq/snd-seq-midi.o sound/core/seq/seq_midi.o 

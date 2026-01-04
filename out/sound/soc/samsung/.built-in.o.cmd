@@ -1,0 +1,1 @@
+cmd_sound/soc/samsung/built-in.o :=   rm -f sound/soc/samsung/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/soc/samsung/built-in.o sound/soc/samsung/snd-soc-sec-audio.o ; scripts/mod/modpost sound/soc/samsung/built-in.o

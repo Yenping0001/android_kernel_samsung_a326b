@@ -1,0 +1,1 @@
+cmd_sound/i2c/built-in.o :=   rm -f sound/i2c/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/i2c/built-in.o sound/i2c/other/built-in.o ; scripts/mod/modpost sound/i2c/built-in.o

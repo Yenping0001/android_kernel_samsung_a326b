@@ -1,0 +1,1 @@
+cmd_drivers/watchdog/watchdog.o :=  rm -f drivers/watchdog/watchdog.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/watchdog/watchdog.o drivers/watchdog/watchdog_core.o drivers/watchdog/watchdog_dev.o 

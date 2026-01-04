@@ -1,0 +1,1 @@
+cmd_drivers/usb/storage/ums-karma.o :=  rm -f drivers/usb/storage/ums-karma.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/usb/storage/ums-karma.o drivers/usb/storage/karma.o 

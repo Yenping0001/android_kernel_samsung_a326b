@@ -1,0 +1,1 @@
+cmd_fs/fat/msdos.o :=  rm -f fs/fat/msdos.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD fs/fat/msdos.o fs/fat/namei_msdos.o 

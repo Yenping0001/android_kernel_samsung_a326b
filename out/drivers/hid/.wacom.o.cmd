@@ -1,0 +1,1 @@
+cmd_drivers/hid/wacom.o :=  rm -f drivers/hid/wacom.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/hid/wacom.o drivers/hid/wacom_wac.o drivers/hid/wacom_sys.o 

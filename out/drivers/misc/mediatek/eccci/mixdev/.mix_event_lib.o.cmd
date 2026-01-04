@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/eccci/mixdev/mix_event_lib.o :=  rm -f drivers/misc/mediatek/eccci/mixdev/mix_event_lib.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/mediatek/eccci/mixdev/mix_event_lib.o drivers/misc/mediatek/eccci/mixdev/mix_event.o 

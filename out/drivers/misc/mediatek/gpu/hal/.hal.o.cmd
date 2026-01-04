@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/gpu/hal/hal.o :=  rm -f drivers/misc/mediatek/gpu/hal/hal.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/mediatek/gpu/hal/hal.o drivers/misc/mediatek/gpu/hal/mtk_gpu_utility.o 

@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/omapdrm/built-in.o :=   rm -f drivers/gpu/drm/omapdrm/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/gpu/drm/omapdrm/built-in.o drivers/gpu/drm/omapdrm/dss/built-in.o drivers/gpu/drm/omapdrm/displays/built-in.o ; scripts/mod/modpost drivers/gpu/drm/omapdrm/built-in.o

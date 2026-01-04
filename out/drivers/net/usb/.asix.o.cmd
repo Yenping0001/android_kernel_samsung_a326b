@@ -1,0 +1,1 @@
+cmd_drivers/net/usb/asix.o :=  rm -f drivers/net/usb/asix.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/net/usb/asix.o drivers/net/usb/asix_devices.o drivers/net/usb/asix_common.o drivers/net/usb/ax88172a.o 

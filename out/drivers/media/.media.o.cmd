@@ -1,0 +1,1 @@
+cmd_drivers/media/media.o :=  rm -f drivers/media/media.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/media/media.o drivers/media/media-device.o drivers/media/media-devnode.o drivers/media/media-entity.o 

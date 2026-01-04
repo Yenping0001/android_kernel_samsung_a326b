@@ -1,0 +1,1 @@
+cmd_sound/core/snd-rawmidi.o :=  rm -f sound/core/snd-rawmidi.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/core/snd-rawmidi.o sound/core/rawmidi.o 

@@ -1,0 +1,1 @@
+cmd_lib/lzo/lzo_compress.o :=  rm -f lib/lzo/lzo_compress.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD lib/lzo/lzo_compress.o lib/lzo/lzo1x_compress.o 

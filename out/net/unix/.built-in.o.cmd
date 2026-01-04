@@ -1,0 +1,1 @@
+cmd_net/unix/built-in.o :=   rm -f net/unix/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD net/unix/built-in.o net/unix/unix.o net/unix/scm.o ; scripts/mod/modpost net/unix/built-in.o

@@ -1,0 +1,1 @@
+cmd_fs/configfs/built-in.o :=   rm -f fs/configfs/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD fs/configfs/built-in.o fs/configfs/configfs.o ; scripts/mod/modpost fs/configfs/built-in.o

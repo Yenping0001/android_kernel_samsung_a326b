@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/chip/mt6853/CHIP.o :=  rm -f drivers/misc/mediatek/chip/mt6853/CHIP.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/mediatek/chip/mt6853/CHIP.o drivers/misc/mediatek/chip/mt6853/mtk_chip.o 

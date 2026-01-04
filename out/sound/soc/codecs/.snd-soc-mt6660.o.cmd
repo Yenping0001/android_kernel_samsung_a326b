@@ -1,0 +1,1 @@
+cmd_sound/soc/codecs/snd-soc-mt6660.o :=  rm -f sound/soc/codecs/snd-soc-mt6660.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/soc/codecs/snd-soc-mt6660.o sound/soc/codecs/mt6660.o sound/soc/codecs/mt6660-regmap.o 

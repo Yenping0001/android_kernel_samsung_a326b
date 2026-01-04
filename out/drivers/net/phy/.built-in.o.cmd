@@ -1,0 +1,1 @@
+cmd_drivers/net/phy/built-in.o :=   rm -f drivers/net/phy/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/net/phy/built-in.o drivers/net/phy/mdio-boardinfo.o drivers/net/phy/libphy.o drivers/net/phy/fixed_phy.o ; scripts/mod/modpost drivers/net/phy/built-in.o

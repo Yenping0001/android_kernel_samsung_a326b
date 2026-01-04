@@ -1,0 +1,1 @@
+cmd_sound/pcmcia/built-in.o :=   rm -f sound/pcmcia/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/pcmcia/built-in.o sound/pcmcia/vx/built-in.o sound/pcmcia/pdaudiocf/built-in.o ; scripts/mod/modpost sound/pcmcia/built-in.o

@@ -1,0 +1,1 @@
+cmd_lib/reed_solomon/built-in.o :=   rm -f lib/reed_solomon/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD lib/reed_solomon/built-in.o lib/reed_solomon/reed_solomon.o ; scripts/mod/modpost lib/reed_solomon/built-in.o

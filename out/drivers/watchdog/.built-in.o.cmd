@@ -1,0 +1,1 @@
+cmd_drivers/watchdog/built-in.o :=   rm -f drivers/watchdog/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/watchdog/built-in.o drivers/watchdog/watchdog.o drivers/watchdog/softdog.o drivers/watchdog/mediatek/built-in.o ; scripts/mod/modpost drivers/watchdog/built-in.o

@@ -1,0 +1,1 @@
+cmd_drivers/media/firewire/built-in.o :=  rm -f drivers/media/firewire/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/media/firewire/built-in.o

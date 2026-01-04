@@ -1,0 +1,1 @@
+cmd_fs/ntfs/built-in.o :=   rm -f fs/ntfs/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD fs/ntfs/built-in.o fs/ntfs/ntfs.o ; scripts/mod/modpost fs/ntfs/built-in.o

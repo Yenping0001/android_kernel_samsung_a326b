@@ -1,0 +1,1 @@
+cmd_drivers/hid/usbhid/built-in.o :=   rm -f drivers/hid/usbhid/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/hid/usbhid/built-in.o drivers/hid/usbhid/usbhid.o ; scripts/mod/modpost drivers/hid/usbhid/built-in.o

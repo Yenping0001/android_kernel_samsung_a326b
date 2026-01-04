@@ -1,0 +1,1 @@
+cmd_drivers/char/rpmb/built-in.o :=   rm -f drivers/char/rpmb/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/char/rpmb/built-in.o drivers/char/rpmb/rpmb-mtk.o drivers/char/rpmb/rpmb.o ; scripts/mod/modpost drivers/char/rpmb/built-in.o

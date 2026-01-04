@@ -1,0 +1,1 @@
+cmd_drivers/cpuidle/governors/built-in.o :=   rm -f drivers/cpuidle/governors/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/cpuidle/governors/built-in.o drivers/cpuidle/governors/menu.o drivers/cpuidle/governors/mtk_menu.o ; scripts/mod/modpost drivers/cpuidle/governors/built-in.o

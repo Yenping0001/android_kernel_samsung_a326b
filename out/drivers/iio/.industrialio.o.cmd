@@ -1,0 +1,1 @@
+cmd_drivers/iio/industrialio.o :=  rm -f drivers/iio/industrialio.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/iio/industrialio.o drivers/iio/industrialio-core.o drivers/iio/industrialio-event.o drivers/iio/inkern.o drivers/iio/industrialio-buffer.o 

@@ -1,0 +1,1 @@
+cmd_drivers/iio/buffer/built-in.o :=   rm -f drivers/iio/buffer/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/iio/buffer/built-in.o drivers/iio/buffer/kfifo_buf.o ; scripts/mod/modpost drivers/iio/buffer/built-in.o

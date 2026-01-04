@@ -1,0 +1,1 @@
+cmd_drivers/hid/hid-wiimote.o :=  rm -f drivers/hid/hid-wiimote.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/hid/hid-wiimote.o drivers/hid/hid-wiimote-core.o drivers/hid/hid-wiimote-modules.o 

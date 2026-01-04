@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/flashlight/flashlight.o :=  rm -f drivers/misc/mediatek/flashlight/flashlight.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/mediatek/flashlight/flashlight.o drivers/misc/mediatek/flashlight/flashlight-core.o drivers/misc/mediatek/flashlight/flashlight-device.o 

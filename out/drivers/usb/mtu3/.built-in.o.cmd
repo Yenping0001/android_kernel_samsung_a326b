@@ -1,0 +1,1 @@
+cmd_drivers/usb/mtu3/built-in.o :=   rm -f drivers/usb/mtu3/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/usb/mtu3/built-in.o drivers/usb/mtu3/mt6853/built-in.o drivers/usb/mtu3/mtu3_debugfs_v2.o drivers/usb/mtu3/musb_hdrc.o ; scripts/mod/modpost drivers/usb/mtu3/built-in.o

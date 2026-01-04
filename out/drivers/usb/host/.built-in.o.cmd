@@ -1,0 +1,1 @@
+cmd_drivers/usb/host/built-in.o :=   rm -f drivers/usb/host/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/usb/host/built-in.o drivers/usb/host/xhci-hcd.o drivers/usb/host/xhci-mtk.o ; scripts/mod/modpost drivers/usb/host/built-in.o

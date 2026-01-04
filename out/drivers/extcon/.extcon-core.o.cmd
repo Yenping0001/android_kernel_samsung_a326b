@@ -1,0 +1,1 @@
+cmd_drivers/extcon/extcon-core.o :=  rm -f drivers/extcon/extcon-core.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/extcon/extcon-core.o drivers/extcon/extcon.o drivers/extcon/devres.o 

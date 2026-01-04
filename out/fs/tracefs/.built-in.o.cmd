@@ -1,0 +1,1 @@
+cmd_fs/tracefs/built-in.o :=   rm -f fs/tracefs/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD fs/tracefs/built-in.o fs/tracefs/tracefs.o ; scripts/mod/modpost fs/tracefs/built-in.o

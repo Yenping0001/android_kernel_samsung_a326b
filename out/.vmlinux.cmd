@@ -1,0 +1,1 @@
+cmd_vmlinux := /bin/bash ../scripts/link-vmlinux.sh /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ld -EL -maarch64linux -z noexecstack --no-undefined -X -shared -Bsymbolic -z notext -z norelro  --no-apply-dynamic-relocs --build-id ;  true

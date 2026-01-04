@@ -1,0 +1,1 @@
+cmd_drivers/hid/hid-picolcd.o :=  rm -f drivers/hid/hid-picolcd.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/hid/hid-picolcd.o drivers/hid/hid-picolcd_core.o 

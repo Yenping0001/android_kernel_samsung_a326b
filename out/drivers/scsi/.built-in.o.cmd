@@ -1,0 +1,1 @@
+cmd_drivers/scsi/built-in.o :=   rm -f drivers/scsi/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/scsi/built-in.o drivers/scsi/scsi_mod.o drivers/scsi/ufs/built-in.o drivers/scsi/sd_mod.o ; scripts/mod/modpost drivers/scsi/built-in.o

@@ -1,0 +1,1 @@
+cmd_drivers/input/misc/hall/built-in.o :=   rm -f drivers/input/misc/hall/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/input/misc/hall/built-in.o drivers/input/misc/hall/hall_ic.o ; scripts/mod/modpost drivers/input/misc/hall/built-in.o

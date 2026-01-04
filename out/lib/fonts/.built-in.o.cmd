@@ -1,0 +1,1 @@
+cmd_lib/fonts/built-in.o :=   rm -f lib/fonts/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD lib/fonts/built-in.o lib/fonts/font.o ; scripts/mod/modpost lib/fonts/built-in.o

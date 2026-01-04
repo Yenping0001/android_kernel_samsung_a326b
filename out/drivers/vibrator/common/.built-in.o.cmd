@@ -1,0 +1,1 @@
+cmd_drivers/vibrator/common/built-in.o :=   rm -f drivers/vibrator/common/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/vibrator/common/built-in.o drivers/vibrator/common/sec_vibrator.o ; scripts/mod/modpost drivers/vibrator/common/built-in.o

@@ -1,0 +1,1 @@
+cmd_fs/incfs/incrementalfs.o :=  rm -f fs/incfs/incrementalfs.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD fs/incfs/incrementalfs.o fs/incfs/data_mgmt.o fs/incfs/format.o fs/incfs/integrity.o fs/incfs/main.o fs/incfs/pseudo_files.o fs/incfs/sysfs.o fs/incfs/vfs.o fs/incfs/verity.o 

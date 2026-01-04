@@ -1,0 +1,1 @@
+cmd_drivers/hid/hid.o :=  rm -f drivers/hid/hid.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/hid/hid.o drivers/hid/hid-core.o drivers/hid/hid-input.o drivers/hid/hidraw.o 

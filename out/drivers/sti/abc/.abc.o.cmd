@@ -1,0 +1,1 @@
+cmd_drivers/sti/abc/abc.o :=  rm -f drivers/sti/abc/abc.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/sti/abc/abc.o drivers/sti/abc/abc_common.o 

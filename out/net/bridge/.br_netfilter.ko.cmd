@@ -1,0 +1,1 @@
+cmd_net/bridge/br_netfilter.ko := /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ld -EL -r -maarch64linux -z noexecstack -T ../scripts/module-common.lds -T ../arch/arm64/kernel/module.lds --build-id  -o net/bridge/br_netfilter.ko net/bridge/br_netfilter.o net/bridge/br_netfilter.mod.o ;  true

@@ -1,0 +1,1 @@
+cmd_drivers/block/zram/built-in.o :=   rm -f drivers/block/zram/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/block/zram/built-in.o drivers/block/zram/zram.o ; scripts/mod/modpost drivers/block/zram/built-in.o

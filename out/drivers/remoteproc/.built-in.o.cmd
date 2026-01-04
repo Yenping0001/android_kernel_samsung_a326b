@@ -1,0 +1,1 @@
+cmd_drivers/remoteproc/built-in.o :=   rm -f drivers/remoteproc/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/remoteproc/built-in.o drivers/remoteproc/remoteproc.o ; scripts/mod/modpost drivers/remoteproc/built-in.o

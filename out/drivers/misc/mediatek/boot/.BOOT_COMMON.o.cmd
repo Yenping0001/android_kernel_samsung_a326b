@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/boot/BOOT_COMMON.o :=  rm -f drivers/misc/mediatek/boot/BOOT_COMMON.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/misc/mediatek/boot/BOOT_COMMON.o drivers/misc/mediatek/boot/mtk_boot_common.o drivers/misc/mediatek/boot/mtk_boot.o 

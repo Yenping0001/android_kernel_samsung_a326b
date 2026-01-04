@@ -1,0 +1,1 @@
+cmd_sound/soundcore.o :=  rm -f sound/soundcore.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/soundcore.o sound/sound_core.o 

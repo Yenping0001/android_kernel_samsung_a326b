@@ -1,0 +1,1 @@
+cmd_crypto/crypto_acompress.o :=  rm -f crypto/crypto_acompress.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD crypto/crypto_acompress.o crypto/acompress.o crypto/scompress.o 

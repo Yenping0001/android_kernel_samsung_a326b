@@ -1,0 +1,1 @@
+cmd_net/ipv4/tcp_htcp.ko := /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ld -EL -r -maarch64linux -z noexecstack -T ../scripts/module-common.lds -T ../arch/arm64/kernel/module.lds --build-id  -o net/ipv4/tcp_htcp.ko net/ipv4/tcp_htcp.o net/ipv4/tcp_htcp.mod.o ;  true

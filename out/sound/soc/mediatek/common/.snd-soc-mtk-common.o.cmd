@@ -1,0 +1,1 @@
+cmd_sound/soc/mediatek/common/snd-soc-mtk-common.o :=  rm -f sound/soc/mediatek/common/snd-soc-mtk-common.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD sound/soc/mediatek/common/snd-soc-mtk-common.o sound/soc/mediatek/common/mtk-afe-platform-driver.o sound/soc/mediatek/common/mtk-afe-fe-dai.o 

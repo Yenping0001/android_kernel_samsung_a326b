@@ -1,0 +1,1 @@
+cmd_drivers/fingerprint/built-in.o :=   rm -f drivers/fingerprint/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD drivers/fingerprint/built-in.o drivers/fingerprint/fingerprint.o drivers/fingerprint/fingerprint_sysfs.o ; scripts/mod/modpost drivers/fingerprint/built-in.o

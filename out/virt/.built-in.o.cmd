@@ -1,0 +1,1 @@
+cmd_virt/built-in.o :=   rm -f virt/built-in.o; /home/runner/work/android_kernel_samsung_a326b/android_kernel_samsung_a326b/gcc/bin/aarch64-linux-androidkernel-ar rcSTPD virt/built-in.o virt/lib/built-in.o ; scripts/mod/modpost virt/built-in.o
