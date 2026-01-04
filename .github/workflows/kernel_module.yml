@@ -50,33 +50,29 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1. Setup Identity
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 2. Create a new unique branch based on run number
           BRANCH_NAME="full-build-${{ github.run_number }}"
           git checkout -b $BRANCH_NAME
 
-          # 3. Targeted Cleanup
-          # We delete .o and .a files which take up 90% of space
-          # We keep .ko, .zip, .img, and Image* files
-          echo "Cleaning up heavy intermediate objects while keeping modules/images..."
+          echo "Removing files exceeding 100MB limit..."
+          # Delete the specific massive files shown in your error log
+          find . -name "vmlinux*" -delete
+          find . -name ".tmp_vmlinux*" -delete
+          
+          # Delete intermediate build junk but keep .ko and .zip
           find . -name "*.o" -delete
           find . -name "*.a" -delete
           find . -name "*.mod" -delete
           find . -name "*.mod.c" -delete
           
-          # 4. Remove KernelSU git metadata to prevent submodule errors
+          # Remove KernelSU git metadata
           rm -rf KernelSU/.git
 
-          # 5. Force add everything left (Source + build outputs)
           git add -f .
+          git commit -m "Full source (cleaned of >100MB files) - Run ${{ github.run_number }}"
           
-          # 6. Commit changes
-          git commit -m "Full source upload (including .ko and images) - Run ${{ github.run_number }}"
-          
-          # 7. Increase Git buffer to handle large push and push to origin
           git config --global http.postBuffer 524288000
           git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" $BRANCH_NAME
-
+          
