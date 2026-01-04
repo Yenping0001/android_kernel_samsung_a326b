@@ -1,12 +1,7 @@
-name: Build Single Kernel Module
+name: Build Mediatek Module
 
 on:
   workflow_dispatch:
-    inputs:
-      module_dir:
-        description: 'Directory of the module (e.g., drivers/video/fbdev)'
-        required: true
-        default: 'drivers/staging/android'
 
 jobs:
   build:
@@ -23,13 +18,12 @@ jobs:
 
       - name: Clone Toolchains
         run: |
-          # Links from your config.sh
           git clone --depth=1 https://github.com/H33CKER/toolchains -b gcc-4.9 ./gcc
           git clone --depth=1 https://github.com/H33CKER/toolchains -b clang-12 ./clang
 
       - name: Build Module
         run: |
-          # Setup Environment
+          # Load Environment (from your config.sh logic)
           export ARCH=arm64
           export SRC=$(pwd)
           export OUT_DIR=$SRC/out
@@ -40,18 +34,28 @@ jobs:
           
           mkdir -p $OUT_DIR
 
-          # 1. Initialize config
+          # 1. Setup Config
           make -C $SRC O=$OUT_DIR a32x_defconfig
 
-          # 2. Prepare headers/scripts (Required for standalone module build)
+          # 2. IMPORTANT: Force enable the module as 'm' if it's not set
+          # This ensures it generates a .ko instead of being built into the kernel
+          scripts/config --file $OUT_DIR/.config --enable CONFIG_MTK_CONN_FEM
+          # (Replace CONFIG_MTK_CONN_FEM with the actual config name for your driver)
+
+          # 3. Prepare for building
           make -C $SRC O=$OUT_DIR -j$(nproc) modules_prepare
 
-          # 3. Build only the specific directory
-          make -C $SRC O=$OUT_DIR -j$(nproc) M=${{ github.event.inputs.module_dir }}
+          # 4. Build the specific Mediatek path
+          make -C $SRC O=$OUT_DIR -j$(nproc) M=drivers/misc/mediatek/connectivity
+
+      - name: Check for .ko Files
+        run: |
+          echo "Listing found modules:"
+          find out/drivers/misc/mediatek/connectivity -name "*.ko"
 
       - name: Upload .ko Files
         uses: actions/upload-artifact@v4
         with:
-          name: compiled-modules
-          path: out/${{ github.event.inputs.module_dir }}/*.ko
+          name: MTK-Modules
+          path: out/drivers/misc/mediatek/connectivity/**/*.ko
           
