@@ -1,58 +1,65 @@
-name: Build MTK WLAN Module
+
+name: Build Android Kernel Module
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Allows you to run this manually from the Actions tab
 
 jobs:
-  build:
+  build_module:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Source
+      - name: Checkout Kernel Source
         uses: actions/checkout@v4
 
-      - name: Install Dependencies
+      - name: Install Build Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y bc build-essential python3 curl git zip \
           libssl-dev libffi-dev flex bison libelf-dev libncurses-dev
 
-      - name: Clone Toolchains
+      - name: Setup Toolchains
         run: |
-          # Toolchains from your config.sh
+          # Use URLs and branches from your config.sh
           git clone --depth=1 https://github.com/H33CKER/toolchains -b gcc-4.9 ./gcc
           git clone --depth=1 https://github.com/H33CKER/toolchains -b clang-12 ./clang
 
-      - name: Build Module
+      - name: Build WLAN Module
         run: |
-          # Environment Setup
-          export ARCH=arm64
-          export SRC=$(pwd)
-          export OUT_DIR=$SRC/out
-          export CROSS_COMPILE=$SRC/gcc/bin/aarch64-linux-androidkernel-
-          export CC=$SRC/clang/bin/clang
-          export CLANG_TRIPLE=aarch64-linux-gnu-
-          export PATH=$SRC/clang/bin:$SRC/gcc/bin:$PATH
+          # 1. Load your existing environment configuration
+          source ./config.sh
           
+          # 2. Modify your defconfig to force .ko generation
+          # We ensure these are set to 'm' (module) or 'n' (not built-in)
+          CONFIG_PATH="arch/arm64/configs/a32x_defconfig"
+          
+          sed -i '/CONFIG_WLAN_DRV_BUILD_IN/d' $CONFIG_PATH
+          sed -i '/CONFIG_MTK_WLAN_SUPPORT/d' $CONFIG_PATH
+          
+          echo "CONFIG_WLAN_DRV_BUILD_IN=n" >> $CONFIG_PATH
+          echo "CONFIG_MTK_WLAN_SUPPORT=m" >> $CONFIG_PATH
+          echo "CONFIG_MTK_COMBO_CHIP=\"CONSYS_6765\"" >> $CONFIG_PATH
+
+          # 3. Create output directory
           mkdir -p $OUT_DIR
 
-          # 1. Generate the .config file (Fixes the screenshot error)
+          # 4. Initialize build with the a32x_defconfig
           make -C $SRC O=$OUT_DIR a32x_defconfig
 
-          # 2. Prepare the build environment (Fixes the missing auto.conf error)
+          # 5. Prepare build environment (This generates the missing auto.conf)
+          # This step is critical to fix the error in your screenshot
           make -C $SRC O=$OUT_DIR -j$(nproc) modules_prepare
 
-          # 3. Build specifically the WLAN directory
-          # We target the subfolder directly to find the .ko
+          # 6. Build the specific MediaTek connectivity directory
+          # The 'modules' target tells Kbuild to create the .ko file
           make -C $SRC O=$OUT_DIR -j$(nproc) M=drivers/misc/mediatek/connectivity modules
 
-      - name: Find and Upload .ko
+      - name: Search and Upload Module
         run: |
-          echo "Searching for .ko files..."
+          echo "Listing compiled modules:"
           find out -name "*.ko"
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wlan-module
-          path: out/**/*.ko
-          
+          name: wlan_drv_gen4m_module
+          path: out/drivers/misc/mediatek/connectivity/**/*.ko
