@@ -43,12 +43,12 @@ jobs:
 
           # 3. Build specifically the WLAN directory
           # We target the subfolder directly to find the .ko
-          make -C $SRC O=$OUT_DIR -j$(nproc) M=drivers/misc/mediatek/connectivity/wlan_drv_gen4m modules
+          make -C $SRC O=$OUT_DIR -j$(nproc) M=drivers/misc/mediatek/connectivity modules
 
       - name: Find and Upload .ko
         run: |
-          echo "Searching for wlan_drv_gen4m.ko..."
-          find out -name "wlan_drv_gen4m.ko"
+          echo "Searching for .ko files..."
+          find out -name "*.ko"
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
