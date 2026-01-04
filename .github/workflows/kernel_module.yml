@@ -1,4 +1,4 @@
-name: Kernel Build & Release (KernelSU)
+name: Kernel Build & Upload Full Source (KernelSU)
 
 on:
   workflow_dispatch:
@@ -17,28 +17,13 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install build dependencies
         run: |
           sudo apt update
-          sudo apt install -y \
-            bc \
-            bison \
-            build-essential \
-            ccache \
-            curl \
-            flex \
-            git \
-            libelf-dev \
-            libssl-dev \
-            lld \
-            llvm \
-            make \
-            python3 \
-            rsync \
-            unzip \
-            wget \
-            zip
+          sudo apt install -y bc bison build-essential ccache curl flex git libelf-dev libssl-dev lld llvm make python3 rsync unzip wget zip
 
       - name: Enable ccache
         uses: actions/cache@v4
@@ -61,30 +46,37 @@ jobs:
           export PLATFORM_VERSION=16.0
           ./build.sh
 
-      - name: Collect build artifacts
+      - name: Push Full Source to New Branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mkdir -p release
-          # 1. Collect standard kernel images and dtbs
-          find . -type f \( -name "Image*" -o -name "*.dtb" -o -name "*.dtbo" -o -name "*.zip" \) -exec cp {} release/ \;
+          # 1. Setup Identity
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 2. Specifically find and collect the WLAN module
-          # We use -name to find it and cp it into the root of the release folder
-          find . -type f -name "wlan_drv_gen4m.ko" -exec cp {} release/ \;
-          
-          # Optional: List files to logs for debugging
-          echo "Files collected for release:"
-          ls -R release/
+          # 2. Create a new unique branch based on run number
+          BRANCH_NAME="full-build-${{ github.run_number }}"
+          git checkout -b $BRANCH_NAME
 
-      - name: Create GitHub Release
-        id: release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: build-${{ github.run_number }}
-          name: Kernel Build w/ KernelSU ${{ github.run_number }}
-          body: |
-            Automated kernel build with KernelSU.
-            Includes WLAN Module: wlan_drv_gen4m.ko
-            Commit: ${{ github.sha }}
-          files: |
-            release/*
-            
+          # 3. Targeted Cleanup
+          # We delete .o and .a files which take up 90% of space
+          # We keep .ko, .zip, .img, and Image* files
+          echo "Cleaning up heavy intermediate objects while keeping modules/images..."
+          find . -name "*.o" -delete
+          find . -name "*.a" -delete
+          find . -name "*.mod" -delete
+          find . -name "*.mod.c" -delete
+          
+          # 4. Remove KernelSU git metadata to prevent submodule errors
+          rm -rf KernelSU/.git
+
+          # 5. Force add everything left (Source + build outputs)
+          git add -f .
+          
+          # 6. Commit changes
+          git commit -m "Full source upload (including .ko and images) - Run ${{ github.run_number }}"
+          
+          # 7. Increase Git buffer to handle large push and push to origin
+          git config --global http.postBuffer 524288000
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" $BRANCH_NAME
+
