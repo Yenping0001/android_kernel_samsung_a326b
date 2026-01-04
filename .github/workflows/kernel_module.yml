@@ -1,78 +1,57 @@
-name: Kernel Build & Upload Full Source (KernelSU)
+name: Build Specific Kernel Module
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-      - master
+    inputs:
+      module_path:
+        description: 'Path to module (e.g., drivers/video/fbdev)'
+        required: true
+        default: 'drivers/staging/example'
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
-
-    permissions:
-      contents: write
-
+  build_module:
+    runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout source
+      - name: Checkout Kernel Source
         uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bc build-essential python3 curl git zip \
+          libssl-dev libffi-dev flex bison libelf-dev libncurses-dev
+
+      - name: Setup Toolchains
+        run: |
+          # Cloning toolchains as defined in your config.sh
+          git clone --depth=1 https://github.com/H33CKER/toolchains -b clang-12 ./clang
+          git clone --depth=1 https://github.com/H33CKER/toolchains -b gcc-4.9 ./gcc
+
+      - name: Build Module
+        run: |
+          # Define environment variables from your config.sh
+          export ARCH=arm64
+          export SRC=$(pwd)
+          export OUT_DIR=$SRC/out
+          export CROSS_COMPILE=$SRC/gcc/bin/aarch64-linux-androidkernel-
+          export CC=$SRC/clang/bin/clang
+          export CLANG_TRIPLE=aarch64-linux-gnu-
+          export PATH=$SRC/clang/bin:$SRC/gcc/bin:$PATH
+          
+          mkdir -p $OUT_DIR
+
+          # 1. Generate the base configuration
+          make -C $SRC O=$OUT_DIR a32x_defconfig
+
+          # 2. Build ONLY the specific module
+          # We use the input from the 'workflow_dispatch'
+          make -C $SRC O=$OUT_DIR -j$(nproc) M=${{ github.event.inputs.module_path }}
+
+      - name: Upload Module Artifact
+        uses: actions/upload-artifact@v4
         with:
-          fetch-depth: 0
+          name: kernel-modules
+          # This finds all .ko files in the specific output path
+          path: out/${{ github.event.inputs.module_path }}/*.ko
 
-      - name: Install build dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y bc bison build-essential ccache curl flex git libelf-dev libssl-dev lld llvm make python3 rsync unzip wget zip
-
-      - name: Enable ccache
-        uses: actions/cache@v4
-        with:
-          path: ~/.ccache
-          key: ccache-${{ runner.os }}-${{ github.sha }}
-          restore-keys: |
-            ccache-${{ runner.os }}-
-
-      - name: Clone KernelSU
-        run: |
-          git clone --depth=1 https://github.com/tiann/KernelSU.git KernelSU
-
-      - name: Build kernel with KernelSU
-        env:
-          KERNELSU: 1
-          KERNELSU_PATH: ${{ github.workspace }}/KernelSU
-        run: |
-          chmod +x build.sh
-          export PLATFORM_VERSION=16.0
-          ./build.sh
-
-      - name: Push Full Source to New Branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          BRANCH_NAME="full-build-${{ github.run_number }}"
-          git checkout -b $BRANCH_NAME
-
-          echo "Removing files exceeding 100MB limit..."
-          # Delete the specific massive files shown in your error log
-          find . -name "vmlinux*" -delete
-          find . -name ".tmp_vmlinux*" -delete
-          
-          # Delete intermediate build junk but keep .ko and .zip
-          find . -name "*.o" -delete
-          find . -name "*.a" -delete
-          find . -name "*.mod" -delete
-          find . -name "*.mod.c" -delete
-          
-          # Remove KernelSU git metadata
-          rm -rf KernelSU/.git
-
-          git add -f .
-          git commit -m "Full source (cleaned of >100MB files) - Run ${{ github.run_number }}"
-          
-          git config --global http.postBuffer 524288000
-          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" $BRANCH_NAME
-          
