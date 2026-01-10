@@ -6,7 +6,7 @@ on:
 
 jobs:
   build_module:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout Kernel Source
         uses: actions/checkout@v4
